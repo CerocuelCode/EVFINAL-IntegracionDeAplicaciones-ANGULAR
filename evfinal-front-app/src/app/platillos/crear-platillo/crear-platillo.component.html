@@ -1,0 +1,40 @@
+<h2>Crear Platillo</h2>
+
+<form [formGroup]="platilloForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" formControlName="nombre" class="form-control">
+    <div *ngIf="platilloForm.get('nombre')?.invalid && (platilloForm.get('nombre')?.dirty || platilloForm.get('nombre')?.touched)" class="alert alert-danger">
+      <div *ngIf="platilloForm.get('nombre')?.errors?.['required']">Nombre es requerido.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="ingredientes">Ingredientes:</label>
+    <textarea id="ingredientes" formControlName="ingredientes" class="form-control"></textarea>
+    <div *ngIf="platilloForm.get('ingredientes')?.invalid && (platilloForm.get('ingredientes')?.dirty || platilloForm.get('ingredientes')?.touched)" class="alert alert-danger">
+      <div *ngIf="platilloForm.get('ingredientes')?.errors?.['required']">Ingredientes son requeridos.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio" formControlName="precio" class="form-control">
+    <div *ngIf="platilloForm.get('precio')?.invalid && (platilloForm.get('precio')?.dirty || platilloForm.get('precio')?.touched)" class="alert alert-danger">
+      <div *ngIf="platilloForm.get('precio')?.errors?.['required']">Precio es requerido.</div>
+      <div *ngIf="platilloForm.get('precio')?.errors?.['pattern']">Precio debe ser un número válido.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="imagen">URL de la Imagen:</label>
+    <input type="text" id="imagen" formControlName="imagen" class="form-control">
+    <div *ngIf="platilloForm.get('imagen')?.invalid && (platilloForm.get('imagen')?.dirty || platilloForm.get('imagen')?.touched)" class="alert alert-danger">
+      <div *ngIf="platilloForm.get('imagen')?.errors?.['required']">URL de la imagen es requerida.</div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="platilloForm.invalid" class="btn btn-primary">Crear Platillo</button>
+  <div *ngIf="mensajeExito" class="alert alert-success mt-3">{{ mensajeExito }}</div>
+  <div *ngIf="mensajeError" class="alert alert-danger mt-3">{{ mensajeError }}</div>
+</form>

@@ -1,0 +1,49 @@
+<div class="container">
+  <h2>Editar Platillo</h2>
+  <div *ngIf="mensajeExito" class="alert alert-success">{{ mensajeExito }}</div>
+  <div *ngIf="mensajeError" class="alert alert-danger">{{ mensajeError }}</div>
+
+  <div *ngIf="cargando" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <form *ngIf="!cargando" [formGroup]="platilloForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="id">ID:</label>
+      <input type="text" id="id" class="form-control" formControlName="id" readonly>
+    </div>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" class="form-control" formControlName="nombre">
+      <div *ngIf="platilloForm.get('nombre')?.invalid && (platilloForm.get('nombre')?.dirty || platilloForm.get('nombre')?.touched)" class="text-danger">
+        <div *ngIf="platilloForm.get('nombre')?.errors?.['required']">El nombre es requerido.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="ingredientes">Descripción:</label>
+      <textarea id="ingredientes" class="form-control" formControlName="ingredientes"></textarea>
+      <div *ngIf="platilloForm.get('ingredientes')?.invalid && (platilloForm.get('ingredientes')?.dirty || platilloForm.get('ingredientes')?.touched)" class="text-danger">
+        <div *ngIf="platilloForm.get('ingredientes')?.errors?.['required']">Los ingredientes es requerida.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="precio">Precio:</label>
+      <input type="number" id="precio" class="form-control" formControlName="precio">
+      <div *ngIf="platilloForm.get('precio')?.invalid && (platilloForm.get('precio')?.dirty || platilloForm.get('precio')?.touched)" class="text-danger">
+        <div *ngIf="platilloForm.get('precio')?.errors?.['required']">El precio es requerido.</div>
+        <div *ngIf="platilloForm.get('precio')?.errors?.['min']">El precio debe ser mayor o igual a 0.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="imagen">URL de la Imagen:</label>
+      <input type="text" id="imagen" class="form-control" formControlName="imagen">
+      <div *ngIf="platilloForm.get('imagen')?.invalid && (platilloForm.get('imagen')?.dirty || platilloForm.get('imagen')?.touched)" class="text-danger">
+        <div *ngIf="platilloForm.get('imagen')?.errors?.['required']">La URL de la imagen es requerida.</div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  </form>
+</div>
